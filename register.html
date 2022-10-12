@@ -18,24 +18,25 @@
                 <div class="card-body p-5 text-center">
       
                   <h3 class="mb-5">Register your account!</h3>
+                  <form id="userRegister">
 
                   <div class="form-outline mb-4">
-                    <input type="email" id="typeEmailX-2" class="form-control form-control-lg" />
+                    <input type="name" id="typeNameX-2" autocomplete="name" class="form-control form-control-lg" />
                     <label class="form-label" for="typeEmailX-2">Name</label>
                   </div>
       
                   <div class="form-outline mb-4">
-                    <input type="email" id="typeEmailX-2" class="form-control form-control-lg" />
+                    <input type="email" id="typeEmailX-2" autocomplete="email" class="form-control form-control-lg" />
                     <label class="form-label" for="typeEmailX-2">Email</label>
                   </div>
       
                   <div class="form-outline mb-4">
-                    <input type="password" id="typePasswordX-2" class="form-control form-control-lg" />
+                    <input type="password" id="typePasswordX-2" autocomplete="new-password" class="form-control form-control-lg" />
                     <label class="form-label" for="typePasswordX-2">Password</label>
                   </div>
       
                   <button class="btn btn-primary btn-lg btn-block" type="submit">Register</button>
-      
+                  </form>
                   <hr class="my-4">
       
                   <p>Already have an account?</p>
@@ -55,6 +56,6 @@
 
 
 
-      <script src="./js/script.js"></script>
+      <script type="module" src="./js/register.js" ></script>
     </body>
 </html>
