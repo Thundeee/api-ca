@@ -15,7 +15,7 @@ registerForm.addEventListener("submit", validateRegister);
 
 
 
-function validateRegister(event) {
+async function validateRegister(event) {
     event.preventDefault();
 
     console.log(registerForm.elements)
@@ -37,6 +37,7 @@ function validateRegister(event) {
         return;
     }
 
-    logRegister(registerUrl, registerInfo)
+   await logRegister(registerUrl, registerInfo);
+   location.href = "registerComplete.html";
 
 }

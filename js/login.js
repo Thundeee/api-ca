@@ -9,14 +9,15 @@ const loginForm = document.querySelector("form#userLogin");
 loginForm.addEventListener("submit", validateLogin);
 
 
-function validateLogin(event) {
+async function validateLogin(event) {
     event.preventDefault();
 
   let loginInfo = {
  email: loginForm.elements[0].value,
      password: loginForm.elements[1].value,
    }
-logRegister(loginUrl, loginInfo);
+await logRegister(loginUrl, loginInfo);
+location.href = "home.html";
    }
 
 
