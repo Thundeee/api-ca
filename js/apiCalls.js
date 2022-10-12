@@ -17,6 +17,13 @@ async function logRegister(url, userData) {
         const json = await response.json();
         console.log(json);
 
+        if (json["message"] !== undefined){
+            document.getElementById("error").innerHTML = json.message
+
+        } 
+
+
+
         if(json["accessToken"] !== undefined){
                     const accessToken = json.accessToken;
         localStorage.setItem('accessToken', accessToken);
