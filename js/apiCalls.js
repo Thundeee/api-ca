@@ -46,3 +46,4 @@ export {logRegister};
     email: "asbjorn_testing_mail@noroff.no",
     password: "kultkult",
 */
+
