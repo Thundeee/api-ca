@@ -5,7 +5,7 @@ const base_Url = "https://nf-api.onrender.com/api/v1";
 
 const registerUrl = `${base_Url}/social/auth/register`;
 
-const errormsg = document.getElementById("registerError")
+const errormsg = document.getElementById("error")
 
 const registerForm = document.querySelector("form#userRegister");
 
@@ -37,7 +37,7 @@ async function validateRegister(event) {
         return;
     }
 
-   await logRegister(registerUrl, registerInfo);
-   location.href = "registerComplete.html";
+   await logRegister(registerUrl, registerInfo, "registerComplete.html");
+
 
 }

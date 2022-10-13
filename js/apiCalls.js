@@ -1,7 +1,7 @@
 
 
 
-async function logRegister(url, userData) {
+async function logRegister(url, userData, newUrl) {
     try {
         const postData = {
             method: "POST",
@@ -19,7 +19,7 @@ async function logRegister(url, userData) {
 
         if (json["message"] !== undefined){
             document.getElementById("error").innerHTML = json.message
-
+            throw new Error;
         } 
 
 
@@ -29,6 +29,9 @@ async function logRegister(url, userData) {
         localStorage.setItem('accessToken', accessToken);
         console.log("userlogin");
         }
+
+        location.href= newUrl;
+
 
     }   catch (error) {
         console.log(error);

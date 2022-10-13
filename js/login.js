@@ -16,8 +16,7 @@ async function validateLogin(event) {
  email: loginForm.elements[0].value,
      password: loginForm.elements[1].value,
    }
-await logRegister(loginUrl, loginInfo);
-location.href = "home.html";
+await logRegister(loginUrl, loginInfo, "home.html");
    }
 
 
