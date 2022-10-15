@@ -25,8 +25,10 @@ async function logRegister(url, userData, newUrl) {
 
 
         if(json["accessToken"] !== undefined){
+                    const username = json.name;
                     const accessToken = json.accessToken;
         localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('username', username);
         console.log("userlogin");
         }
 
