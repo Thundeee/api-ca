@@ -3,6 +3,9 @@ const base_Url = "https://nf-api.onrender.com/api/v1";
 
 const postUrl = `${base_Url}/social/posts?_author=true`;
 
+    const search = document.querySelector("form#searchBar");
+    search.addEventListener("submit", sortSearch);
+
 let json;
 
 async function getWithToken(url) {
@@ -162,14 +165,6 @@ for (let i = 0; i < json.length; i++) {
 
 
 
-
-
-
-
-
-    const search = document.querySelector("form#searchBar");
-    search.addEventListener("submit", sortSearch);
-
 function sortSearch() {
     event.preventDefault();
 
@@ -201,6 +196,8 @@ if (json[i].body.includes(keyword) || json[i].title.includes(keyword) || json[i]
 
 async function initial() {
     await getWithToken(postUrl);
+    let title = document.querySelector("h2")
+    title.innerHTML = `What's on your mind ${localStorage.getItem("username")}?`
 postMaker(json);
 }
 

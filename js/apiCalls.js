@@ -43,6 +43,8 @@ async function logRegister(url, userData, newUrl) {
 
 export {logRegister};
 
+
+
 /* Test bruker
     name: "asbjorn_testing",
     email: "asbjorn_testing_mail@noroff.no",
