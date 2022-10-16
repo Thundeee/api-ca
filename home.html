@@ -37,7 +37,7 @@
 
 <div class="d-flex justify-content-center">
 
-    <div class="">
+    <form class="poster">
         <h2>What's on your mind?</h2>
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Title</label>
@@ -47,8 +47,15 @@
             <label for="exampleFormControlTextarea1" class="form-label">Content</label>
             <textarea class="form-control" id="exampleFormControlTextarea1"  style="resize: none;" placeholder="Tell us about it!"></textarea>
           </div>
-          <button type="button" class="btn btn-warning mb-5">Post!</button>
-</div>
+
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Media</label>
+            <input type="url" class="form-control" id="exampleFormControlInput1" placeholder="Want to attach a picture?">
+          </div>
+
+
+          <button type="submit" class="btn btn-warning mb-5">Post!</button>
+</form>
 
 
 
@@ -57,7 +64,6 @@
 </div>
 <div class="d-flex justify-content-center">
 <button type="button" class="btn btn-info m-2" id="switch">Showing: Newest First</button>
-
 <button type="button" class="btn btn-secondary m-2" onclick="sortMe()">My posts</button>
 <button type="button" class="btn btn-secondary m-2" onclick="sortMedia()">Media</button>
 <button type="button" class="btn btn-secondary m-2" onclick="postMaker(json)">All posts</button>

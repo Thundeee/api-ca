@@ -3,6 +3,8 @@ const base_Url = "https://nf-api.onrender.com/api/v1";
 
 const postUrl = `${base_Url}/social/posts?_author=true`;
 
+const createUrl = `${base_Url}/social/posts`;
+
     const search = document.querySelector("form#searchBar");
     search.addEventListener("submit", sortSearch);
 
@@ -46,8 +48,10 @@ function postMaker(cards) {
   let update = "created";
   container.innerHTML = "";
 
+  radioBttns.innerHTML="Showing: Newest First";
 
-  for (let i = Object.keys(cards).length - 1; i >= 0; i--) {
+// Object.keys(cards).length
+  for (let i = 0; i < Object.keys(cards).length; i++) {
     let buttons = "";
 
     if (cards[i].created !== cards[i].updated) {
@@ -203,3 +207,61 @@ postMaker(json);
 
 
 initial()
+
+
+
+
+//post update delete
+
+
+
+
+
+async function createPost(url, userData,) {
+  try {
+
+    const token = localStorage.getItem("accessToken");
+      const postData = {
+          method: "POST",
+          headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(userData),
+
+      };
+      console.log(userData)
+      const response = await fetch(url, postData);
+      console.log(response);
+      const json = await response.json();
+      console.log(json);
+
+
+  }   catch (error) {
+      console.log(error);
+  }
+
+}
+
+
+const postPoster = document.querySelector("form.poster");
+postPoster.addEventListener("submit", maker);
+
+
+async function maker() {
+  event.preventDefault();
+  let postMakerData = {
+    "title": `${postPoster.elements[0].value}`,
+    "body": `${postPoster.elements[1].value}`,
+    "media": `${postPoster.elements[2].value}`,
+  }
+
+
+
+ await createPost(createUrl, postMakerData);
+ await getWithToken(postUrl);
+ postMaker(json);
+
+}
+
+
