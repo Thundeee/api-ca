@@ -81,6 +81,12 @@ function postMaker(cards) {
         pfp = cards[i].author.avatar 
     }
 
+    console.log(cards[i].media)
+    if (!cards[i].media) {
+
+      cards[i].media = ``
+    };
+
     let date = new Date(cards[i][update]);
 
     
@@ -92,6 +98,7 @@ function postMaker(cards) {
                     }</div>
                     <p class="card-text baseText">${cards[i].body}</p>
                     <img src= "${cards[i].media}" class="img-fluid cardMedia"></img>
+                    <a href="./post.html?${cards[i].id}">Link to post</a>
                     <p class="card-text"><b>${uppercase(update)}</b> ${date.toString().replace(/GMT.*$/g, "")}</p>
                     ${buttons}
                 </div>
@@ -337,6 +344,7 @@ function editer(postId, element) {
  }
 
  media.replaceWith(newMedia);
+ newMedia.insertAdjacentHTML("afterend", "<br>")
 
 let button = element.querySelector(".changer")
 button.innerHTML = "Confirm Changes";
