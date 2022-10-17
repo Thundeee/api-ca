@@ -1,4 +1,4 @@
-import { logRegister } from'./apiCalls.js';
+import { logRegister } from "./apiCalls.js";
 
 const base_Url = "https://nf-api.onrender.com/api/v1";
 
@@ -8,15 +8,12 @@ const loginForm = document.querySelector("form#userLogin");
 
 loginForm.addEventListener("submit", validateLogin);
 
-
 async function validateLogin(event) {
-    event.preventDefault();
+  event.preventDefault();
 
   let loginInfo = {
- email: loginForm.elements[0].value,
-     password: loginForm.elements[1].value,
-   }
-await logRegister(loginUrl, loginInfo, "home.html");
-   }
-
-
+    email: loginForm.elements[0].value,
+    password: loginForm.elements[1].value,
+  };
+  await logRegister(loginUrl, loginInfo, "home.html");
+}
