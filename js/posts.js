@@ -3,10 +3,15 @@ const base_Url = "https://nf-api.onrender.com/api/v1";
 
 const postUrl = `${base_Url}/social/posts?_author=true`;
 
-const createUrl = `${base_Url}/social/posts`;
+const postApiUrl = `${base_Url}/social/posts/`;
+
 
     const search = document.querySelector("form#searchBar");
     search.addEventListener("submit", sortSearch);
+
+
+    let messager = document.querySelector(".msg")
+
 
 let json;
 
@@ -45,7 +50,6 @@ let container = document.querySelector(".card")
 
 
 function postMaker(cards) {
-  let update = "created";
   container.innerHTML = "";
 
   radioBttns.innerHTML="Showing: Newest First";
@@ -53,6 +57,7 @@ function postMaker(cards) {
 // Object.keys(cards).length
   for (let i = 0; i < Object.keys(cards).length; i++) {
     let buttons = "";
+  let update = "created";
 
     if (cards[i].created !== cards[i].updated) {
       update = "updated";
@@ -61,10 +66,10 @@ function postMaker(cards) {
 
     if (cards[i].author.name == localStorage.getItem("username")) {
       buttons = `
-                <button type="button" class="btn btn-warning">Edit</button>
-                <button type="button" class="btn btn-warning">Delete</button>
+                <button type="button" class="btn btn-warning changer" onclick="editer(${cards[i].id}, this.parentNode)">Edit</button>
+                <button type="button" class="btn btn-warning" onclick="deleter(${cards[i].id})">Delete</button>
 
-
+            
 
             `;
     }
@@ -77,14 +82,16 @@ function postMaker(cards) {
     }
 
     let date = new Date(cards[i][update]);
+
+    
     (container.innerHTML += `
                 <div class="card-body bg-light mb-5 border">
-                    <div class="card-title d-flex justify-content-between"><h3>${cards[i].title}</h3><img src ="${pfp}" class="img-fluid" width = "50px"/></div>
+                    <div class="card-title d-flex justify-content-between"><h3 class= "textTitle">${cards[i].title}</h3><img src ="${pfp}" class="img-fluid" width = "50px"/></div>
                     <div class="card-subtitle mb-2 text-muted">By: ${
                         cards[i].author.name
                     }</div>
-                    <p class="card-text">${cards[i].body}</p>
-                    <img src= "${cards[i].media}" class="img-fluid"></img>
+                    <p class="card-text baseText">${cards[i].body}</p>
+                    <img src= "${cards[i].media}" class="img-fluid cardMedia"></img>
                     <p class="card-text"><b>${uppercase(update)}</b> ${date.toString().replace(/GMT.*$/g, "")}</p>
                     ${buttons}
                 </div>
@@ -217,12 +224,12 @@ initial()
 
 
 
-async function createPost(url, userData,) {
+async function postApiCall(url, methodType, userData) {
   try {
 
     const token = localStorage.getItem("accessToken");
       const postData = {
-          method: "POST",
+          method: methodType,
           headers: {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${token}`,
@@ -256,12 +263,119 @@ async function maker() {
     "media": `${postPoster.elements[2].value}`,
   }
 
+  if( postMakerData["media"] === "" ) {
+    delete postMakerData["media"]
+  }
 
 
- await createPost(createUrl, postMakerData);
+ await postApiCall(postApiUrl, "POST", postMakerData);
  await getWithToken(postUrl);
  postMaker(json);
+
+ messager.innerHTML = "Post Created."
+
+ setTimeout(() => {
+
+   messager.innerHTML = ""
+   
+ }, 5000);
 
 }
 
 
+
+
+async function deleter(postId) {
+  
+let url = postApiUrl + postId;
+
+
+
+  await postApiCall(url, "DELETE");
+  await getWithToken(postUrl);
+  postMaker(json);
+  messager.innerHTML = "Post Deleted."
+
+  setTimeout(() => {
+
+    messager.innerHTML = ""
+    
+  }, 5000);
+}
+
+
+
+
+let editUrl;
+
+function editer(postId, element) {
+
+  editUrl = postApiUrl + postId
+  
+  console.log(element)
+ let title = element.querySelector(".textTitle");
+ let text = element.querySelector(".baseText");
+ let media = element.querySelector(".cardMedia");
+
+
+  newTitle = document.createElement('input');
+ newTitle.value = title.innerHTML;
+ title.replaceWith(newTitle);
+
+
+  newText = document.createElement("input");
+ newText.value = text.innerHTML;
+ text.replaceWith(newText);
+
+  newMedia = document.createElement("input");
+  newMedia.type = 'url'
+ if (media.getAttribute('src')) {
+  newMedia.value = media.src;
+  
+ } else {
+   newMedia.value = "";
+ }
+
+ media.replaceWith(newMedia);
+
+let button = element.querySelector(".changer")
+button.innerHTML = "Confirm Changes";
+button.setAttribute( "onClick", "javascript: editConfirm(this.parentNode);" );
+
+
+
+
+
+
+
+}
+
+
+async function editConfirm(element) {
+
+ let newPost = element.querySelectorAll("input")
+
+ let postEdit = {
+    "title": `${newPost[0].value}`,
+    "body": `${newPost[1].value}`,
+    "media": `${newPost[2].value}`,
+  }
+
+
+  if( postEdit["media"] === "" ) {
+    delete postEdit["media"]
+  }  
+
+await postApiCall(editUrl, "PUT", postEdit);
+await getWithToken(postUrl);
+postMaker(json);
+messager.innerHTML = "Post Edited."
+
+setTimeout(() => {
+
+  messager.innerHTML = ""
+  
+}, 5000);
+
+
+}
