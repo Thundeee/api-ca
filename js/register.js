@@ -13,7 +13,6 @@ registerForm.addEventListener("submit", validateRegister);
 async function validateRegister(event) {
   event.preventDefault();
 
-  console.log(registerForm.elements);
   let registerInfo = {
     name: registerForm.elements[0].value,
     email: registerForm.elements[1].value,

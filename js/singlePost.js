@@ -21,7 +21,6 @@ async function postPage() {
 
 async function fetchApi(url) {
   try {
-    console.log(url);
     if (localStorage.getItem("accessToken") === null) {
       console.log("no token");
       location.href = "index.html";
@@ -29,7 +28,6 @@ async function fetchApi(url) {
     }
 
     const token = localStorage.getItem("accessToken");
-    console.log(token);
     const fetchOptions = {
       method: "GET",
       headers: {
@@ -81,7 +79,6 @@ function singlePostMaker(card) {
 
   if (card.created !== card.updated) {
     update = "updated";
-    console.log(update);
   }
 
   if (card.author.name == localStorage.getItem("username")) {
@@ -153,7 +150,6 @@ let editUrl;
 function editer(postId, element) {
   editUrl = postApiUrl + postId;
 
-  console.log(element);
   let title = element.querySelector(".textTitle");
   let text = element.querySelector(".baseText");
   let media = element.querySelector(".cardMedia");
