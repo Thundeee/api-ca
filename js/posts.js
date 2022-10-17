@@ -32,7 +32,6 @@ async function getWithToken(url) {
     }
 
     const token = localStorage.getItem("accessToken");
-    console.log(token);
     const fetchOptions = {
       method: "GET",
       headers: {
@@ -62,7 +61,6 @@ function postMaker(cards) {
 
     if (cards[i].created !== cards[i].updated) {
       update = "updated";
-      console.log(update);
     }
 
     if (cards[i].author.name == localStorage.getItem("username")) {
@@ -126,10 +124,8 @@ function sortNewOld() {
 
   if (radioBttns.innerHTML === "Showing: Newest First") {
     radioBttns.innerHTML = "Showing: Oldest First";
-    console.log("oldest posts first");
   } else {
     radioBttns.innerHTML = "Showing: Newest First";
-    console.log("newest post first");
   }
 
   for (let i = 0; i < element.length; i++) {
@@ -260,7 +256,6 @@ async function deleter(postId) {
 function editer(postId, element) {
   editUrl = postApiUrl + postId;
 
-  console.log(element);
   let title = element.querySelector(".textTitle");
   let text = element.querySelector(".baseText");
   let media = element.querySelector(".cardMedia");
